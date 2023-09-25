@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
@@ -25,6 +25,10 @@ const AppRouter = createBrowserRouter([
       },
       {
         path: 'product',
+        element: <ProductList />
+      },
+      {
+        path: 'product/page/:pageNum',
         element: <ProductList />
       },
       {

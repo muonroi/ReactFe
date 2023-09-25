@@ -1,12 +1,12 @@
-import axiosProductInstance from './axiosInstance'
+import {axiosProductInstance } from './axiosInstance'
 export const productApi = {
     getAll(params) {
         var url = '/products';
         return axiosProductInstance.get(url, { params })
     },
-    get(id) {
+    get(id,params) {
         var url = `/products/${id}`;
-        return axiosProductInstance.get(url)
+        return axiosProductInstance.get(url,{ params })
     },
     add(data) {
         var url = `/products`

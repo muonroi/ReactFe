@@ -1,18 +1,31 @@
-import React from 'react'
-export default function Product() {
+import React from 'react';
+import AppUrl from '../Api/AppUrl';
+
+export default function Product(props) {
+    var info = props.productInfo;
+    console.log(info)
+    if (!info) {
+        return (
+            <div className="well well-small">
+                <p>No products available.</p>
+            </div>
+        );
+    }
+    const formattedPrice = (info.attributes.price / 1000).toLocaleString("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 3,
+    });
     return (
         <div className="thumbnail">
-            <a href="product_details.html" className="overlay"></a>
-            <a className="zoomTool" href="product_details.html" title="add to cart"><span className="icon-search"></span> QUICK VIEW</a>
-            <a href="product_details.html"><img src="assets/img/b.jpg" alt="" /></a>
+            <a href="/" className="overlay"></a>
+            <a className="zoomTool" href={AppUrl.FeURL + '/' +'product/' + info.id} title="add to cart"><span className="icon-search"></span> QUICK VIEW</a>
+            <a href={AppUrl.FeURL + '/' +'product/' +info.id}><img src={AppUrl.ApiURL + info.attributes.image.data[0].attributes.url} alt="" /></a>
             <div className="caption cntr">
-                <p>Manicure & Pedicure</p>
-                <p><strong> $22.00</strong></p>
-                <h4><a className="shopBtn" href="#" title="add to cart"> Add to cart </a></h4>
-                <div className="actionList">
-                    <a className="pull-left" href="#">Add to Wish List </a>
-                    <a className="pull-left" href="#"> Add to Compare </a>
-                </div>
+                <p>{info.attributes.productName}</p>
+                <p><strong> {formattedPrice}</strong></p>
+                <p>{info.attributes.category.data.attributes.categoryName}</p>
+                <h4><a className="shopBtn" href="/" title="add to cart"> Add to cart </a></h4>
                 <br className="clr" />
             </div>
         </div>

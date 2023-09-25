@@ -687,7 +687,7 @@
       if (!isActive) {
         if ('ontouchstart' in document.documentElement) {
           // if mobile we we use a backdrop because click events don't delegate
-          $('<div class="dropdown-backdrop"/>').insertBefore($(this)).on('click', clearMenus)
+          $('<div className="dropdown-backdrop"/>').insertBefore($(this)).on('click', clearMenus)
         }
         $parent.toggleClass('open')
       }
@@ -961,7 +961,7 @@
         if (this.isShown && this.options.backdrop) {
           var doAnimate = $.support.transition && animate
 
-          this.$backdrop = $('<div class="modal-backdrop ' + animate + '" />')
+          this.$backdrop = $('<div className="modal-backdrop ' + animate + '" />')
             .appendTo(document.body)
 
           this.$backdrop.click(
@@ -1390,7 +1390,7 @@
     animation: true
   , placement: 'top'
   , selector: false
-  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+  , template: '<div className="tooltip"><div className="tooltip-arrow"></div><div className="tooltip-inner"></div></div>'
   , trigger: 'hover focus'
   , title: ''
   , delay: 0
@@ -1509,7 +1509,7 @@
     placement: 'right'
   , trigger: 'click'
   , content: ''
-  , template: '<div class="popover"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+  , template: '<div className="popover"><div className="arrow"></div><h3 className="popover-title"></h3><div className="popover-content"></div></div>'
   })
 
 
@@ -2134,8 +2134,8 @@
   $.fn.typeahead.defaults = {
     source: []
   , items: 8
-  , menu: '<ul class="typeahead dropdown-menu"></ul>'
-  , item: '<li><a href="#"></a></li>'
+  , menu: '<ul className="typeahead dropdown-menu"></ul>'
+  , item: '<li><a href="/"></a></li>'
   , minLength: 1
   }
 

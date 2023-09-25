@@ -1,22 +1,31 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-export default function Category() {
+export default function Category(props) {
+    if (!props.categories || props.categories.length === 0) {
+        return (
+            <div className="well well-small">
+                <p>No categories available.</p>
+            </div>
+        );
+    }
+    var categoriesInfo = props.categories;
+    var handleFilterByCategoryName = props.handleFilterByCategoryName
+    var categoryView = categoriesInfo.map((item) => (
+        <li key={item.id}>
+            <Link to='/product' onClick={handleFilterByCategoryName}>{item.attributes.categoryName}</Link>
+            </li>
+    ));
+    
     return (
         <div className="well well-small">
             <ul className="nav nav-list">
-                <li><a href="products.html">Fashion</a></li>
-                <li><a href="products.html">Watches</a></li>
-                <li><a href="products.html">Fine Jewelry</a></li>
-                <li><a href="products.html">Fashion Jewelry</a></li>
-                <li><a href="products.html">Engagement & Wedding</a></li>
-                <li><a href="products.html">Men's Jewelry</a></li>
-                <li><a href="products.html">Vintage & Antique</a></li>
-                <li><a href="products.html">Loose Diamonds</a></li>
-                <li><a href="products.html">Loose Beads</a></li>
-                <li><a href="products.html">See All Jewelry & Watches</a></li>
+                <li>
+                <Link to='/product' onClick={handleFilterByCategoryName}>All</Link>
+                    </li>
+                {categoryView}
                 <li style={{ border: 0 }}> &nbsp;</li>
-                <li> <a className="totalInCart" href="cart.html"><strong>Total Amount  <span className="badge badge-warning pull-right" style={{ lineHeight: '18px' }}>$448.42</span></strong></a></li>
             </ul>
         </div>
-    )
+    );
 }

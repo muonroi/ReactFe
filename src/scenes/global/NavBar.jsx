@@ -5,6 +5,7 @@ export default function NavBar() {
             <div className="navbar-inner">
                 <div className="container">
                     <a
+                    href='/'
                         data-target=".nav-collapse"
                         data-toggle="collapse"
                         className="btn btn-navbar"
@@ -16,22 +17,22 @@ export default function NavBar() {
                     <div className="nav-collapse">
                         <ul className="nav">
                             <li className="active">
-                                <a href="index.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li className="">
-                                <a href="list-view.html">List View</a>
+                                <a href="/">List View</a>
                             </li>
                             <li className="">
-                                <a href="grid-view.html">Grid View</a>
+                                <a href="/">Grid View</a>
                             </li>
                             <li className="">
-                                <a href="three-col.html">Three Column</a>
+                                <a href="/">Three Column</a>
                             </li>
                             <li className="">
-                                <a href="four-col.html">Four Column</a>
+                                <a href="/">Four Column</a>
                             </li>
                             <li className="">
-                                <a href="general.html">General Content</a>
+                                <a href="/">General Content</a>
                             </li>
                         </ul>
                         <form action="#" className="navbar-search pull-left">
@@ -46,7 +47,7 @@ export default function NavBar() {
                                 <a
                                     data-toggle="dropdown"
                                     className="dropdown-toggle"
-                                    href="#"
+                                    a href="/"
                                 >
                                     <span className="icon-lock"></span> Login <b className="caret"></b>
                                 </a>
