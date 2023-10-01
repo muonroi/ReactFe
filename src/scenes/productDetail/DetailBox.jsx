@@ -1,6 +1,8 @@
 import React from "react";
-
+import { useDispatch } from 'react-redux';
+import { addToCart } from "../../state/cartSlide";
 export default function DetailBox(props) {
+    const dispatch = useDispatch();
     var infoProduct = props.products;
     const formattedPrice = (infoProduct.price / 1000).toLocaleString("vi-VN", {
         style: "currency",
@@ -24,7 +26,7 @@ export default function DetailBox(props) {
                     {infoProduct.description}
                     </p>
                     <p>
-                        <button type="submit" className="shopBtn"><span className=" icon-shopping-cart"></span> Add to cart</button>
+                        <button type="submit" className="shopBtn" onClick={() => dispatch(addToCart({ item: { ...infoProduct, count: 1 } }))}><span className=" icon-shopping-cart" ></span> Add to cart</button>
                     </p>
                 </form>
             </div>

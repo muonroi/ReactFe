@@ -1,7 +1,10 @@
 import React from 'react';
 import AppUrl from '../Api/AppUrl';
-
+import { addToCart } from '../state/cartSlide';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 export default function Product(props) {
+    const dispatch = useDispatch();
     var info = props.productInfo;
     console.log(info)
     if (!info) {
@@ -25,7 +28,8 @@ export default function Product(props) {
                 <p>{info.attributes.productName}</p>
                 <p><strong> {formattedPrice}</strong></p>
                 <p>{info.attributes.category.data.attributes.categoryName}</p>
-                <h4><a className="shopBtn" href="/" title="add to cart"> Add to cart </a></h4>
+                <h4><Link to='#st' className="shopBtn" title="add to cart"
+onClick={() => dispatch(addToCart({ item: { ...info, count: 1 } }))}> Add to cart </Link></h4>
                 <br className="clr" />
             </div>
         </div>

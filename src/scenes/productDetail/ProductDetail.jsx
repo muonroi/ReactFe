@@ -13,7 +13,6 @@ export default function ProductDetail() {
     }
     var myView1 = loading === true ? <Loading /> : <PictureBox products={products.attributes}/>;
     var myView2 = loading === true ? <Loading /> : <DetailBox products={products.attributes} />;
-    var myView3 = loading === true ? <Loading /> : <div>..</div>;
     useEffect(() => {
         const fetchData = async () => {
             try {

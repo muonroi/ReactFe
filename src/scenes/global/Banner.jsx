@@ -1,5 +1,14 @@
 import React from 'react'
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 export default function Banner() {
+    var cartItems = useSelector((state) => state.cart.items) 
+const totalItems = cartItems.reduce((total, item) => { 
+  return total + item.count;
+}, 0);
+const total = cartItems.reduce((totalPrice, item) => { 
+  return totalPrice + item.count * item.attributes.price;
+}, 0);
     return (
         <>
             <div id="gototop"></div>
@@ -31,12 +40,10 @@ export default function Banner() {
                             <br />
                             <br />
                         </p>
-                        <span className="btn btn-mini">
-                            [ 2 ] <span className="icon-shopping-cart"></span>
-                        </span>
-                        <span className="btn btn-warning btn-mini">$</span>
-                        <span className="btn btn-mini">&pound;</span>
-                        <span className="btn btn-mini">&euro;</span>
+                        <Link to='/cart' className="btn btn-mini">
+                            [ {totalItems} ] <span className="icon-shopping-cart"></span>
+                        </Link>
+                        <span className="btn btn-warning btn-mini">Vnđ</span>
                     </div>
                 </div>
             </header>

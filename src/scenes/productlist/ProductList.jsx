@@ -49,7 +49,7 @@ export default function ProductList() {
         setMinPrice (e.target.value)
     }
     const handleFilterByCategoryName = (e) => {
-        if(e.target.innerText == 'All')
+        if(e.target.innerText === 'All')
         {
             setCategory(null)
         }

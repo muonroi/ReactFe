@@ -27,12 +27,15 @@ export default function ProductBox(props) {
     }
 
     return (
+        <div className="well well-small">
+      <h3>
+        Featured Products
+      </h3>
+      <hr className="soften" />
+      <div className="row-fluid">
+      {productView}
+      </div>
+    </div>
         
-            <div className="well well-small">
-                <h3>Our Products</h3>
-                <div className="row-fluid">
-                    {productView}
-                </div>
-            </div>
     );
 }
