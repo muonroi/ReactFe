@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 export default function Product(props) {
     const dispatch = useDispatch();
     var info = props.productInfo;
-    console.log(info)
     if (!info) {
         return (
             <div className="well well-small">
