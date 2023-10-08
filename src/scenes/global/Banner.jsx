@@ -2,13 +2,10 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 export default function Banner() {
-    var cartItems = useSelector((state) => state.cart.items) 
-const totalItems = cartItems.reduce((total, item) => { 
-  return total + item.count;
-}, 0);
-const total = cartItems.reduce((totalPrice, item) => { 
-  return totalPrice + item.count * item.attributes.price;
-}, 0);
+    var cartItems = useSelector((state) => state.cart.items)
+    const totalItems = cartItems.reduce((total, item) => {
+        return total + item.count;
+    }, 0);
     return (
         <>
             <div id="gototop"></div>
