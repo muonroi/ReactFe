@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 export default function Paginate(props) {
   var totalPage = props.totalPage;
   var basePath = props.basePath;
+  console.log(totalPage);
+  console.log(basePath);
+
   var currentPage = parseInt(props.currentPage);
   var allLi = [];
 

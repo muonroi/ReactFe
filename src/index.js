@@ -11,6 +11,12 @@ import Checkout from './scenes/checkout/Checkout';
 import Confirmation from './scenes/checkout/Confirmation';
 import CartMenu from './scenes/global/CartMenu';
 import './index.css';
+import Dashboard from './admin/scenes/Product/DashBoard';
+import AdminProduct from './admin/scenes/Product/AdminProduct';
+import AdminProductBox from './admin/scenes/Product/ProductBox';
+import AdminProductDetail from './admin/scenes/Product/ProductDetail';
+import AdminProductAdd from './admin/scenes/Product/ProductAdd';
+import AdminProductEdit from './admin/scenes/Product/ProductEdit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -51,7 +57,39 @@ const AppRouter = createBrowserRouter([
   },
   {
     path: '/admin',
-    element: <Admin />
+    element: <Admin />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />
+      },
+      {
+        path: "/admin/product",
+        element: <AdminProduct />,
+        children: [
+          {
+            index: true,
+            element: <AdminProductBox />
+          },
+          {
+            path: "/admin/product/:id",
+            element: <AdminProductDetail />
+          },
+          {
+            path: "/admin/product/add",
+            element: <AdminProductAdd />
+          },
+          {
+            path: "/admin/product/edit/:id",
+            element: <AdminProductEdit />
+          },
+          {
+            path: "/admin/product/page/:pageNum",
+            element: <AdminProductBox />
+          }
+        ]
+      }
+    ]
   }
 ])
 
