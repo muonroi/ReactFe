@@ -11,14 +11,67 @@ export default function AdminProductBox() {
     const [totalPage,setTotalPage] = useState(1);
     const [msgSuccess, setSuccessMsg] = useState('');
     const [msgWarning, setWarningMsg] = useState('');
+    const [loadData, setLoadData] = useState(1);
+    const [viewOption, setViewOption] = useState('preview');
     const {pageNum} = useParams();
+    const handleSelect=(e) =>{
+      console.log(e.target.value)
+      setViewOption(e.target.value);
+    }
+    const handlePublish = (e) => {
+      const data = {
+        "data": {
+          "publishedAt": e.target.value ? Date.now() : null,
+        }
+      };
+    
+      const togglePublish = async (e) => {
+        try {
+          await productApi.update(e.target.getAttribute('name'), data);
+          setSuccessMsg('Publish success:' + e.target.getAttribute('name'));
+          setLoadData(loadData + 1);
+        } catch (error) {
+          setWarningMsg('Publish error: ' + e.target.getAttribute('name') + error)
+          console.error('Error updating product:', error);
+        }
+      };
+    
+      togglePublish(e);
+    };
+    
+    const handleDelete = (e) => {
+      const deleteProduct = async (id) =>{
+        try {
+          var c = window.confirm('You want delete product: '+ id) + '?';
+          if(c == true)
+          {
+            e.target.classList.remove('fa-trash');
+            e.target.classList.add('fa-spinner');
+            await productApi.del(id);
+            setSuccessMsg('Delete success:' + id);
+            e.target.classList.add('fa-trash');
+            e.target.classList.remove('fa-spinner');
+            setLoadData(loadData+1);
+          }
+        }
+        catch (error) {
+          setWarningMsg('Delete error: ' + id + error)
+      }
+      finally {
+        window.scroll(0, 0)
+      }
+  }
+      deleteProduct(e.target.getAttribute('name'))
+  }
     var myView1 = loading === true ? <Loading /> :products.map((product, i) => (
-      <ProductItem key = {product.id} stt={(pageNum - 1)*12+i + 1} product ={product}/>
+      <ProductItem key = {product.id} stt={i+1} product ={product} handleDelete={handleDelete} handlePublish={handlePublish}/>
     ));
     var params =  {
       populate: '*',
       'pagination[pageSize]': 12,
-      'pagination[page]': pageNum ? pageNum : 1
+      'pagination[page]': pageNum ? pageNum : 1,
+      'publicationState':'preview',
+      'filters[publishedAt][$null]':viewOption == 'preview'
   };
   var paginateView = loading === true ? null : (
     <Paginate
@@ -32,7 +85,6 @@ export default function AdminProductBox() {
         try {
           const response1 = await productApi.getAll(params);
           setProducts(response1.data.data);
-          console.log(response1.data.meta.pagination.pageSize)
           setTotalPage(response1.data.meta.pagination.pageSize);
           setLoading(false);
         } catch (error) {
@@ -40,7 +92,7 @@ export default function AdminProductBox() {
         }
       };
       fetchData();
-    }, [pageNum]); 
+    }, [pageNum,loadData,viewOption]); 
     return (
         <>
   <section className="content">
@@ -48,13 +100,16 @@ export default function AdminProductBox() {
       <p className="bg-success">{msgSuccess}</p>
       <p className="bg-warning">{msgWarning}</p>
     </div>
+    <div className="col-12">
+      <select onChange={handleSelect}>
+        <option value="preview">Preview</option>
+        <option value="published">Live</option>
+      </select>
+    </div>
     <div className="container-fluid">
       <div className="row">
         <div className="col-12">
           <div className="card">
-            <div className="card-header">
-              <h3 className="card-title">DataTable with minimal features &amp; hover style</h3>
-            </div>
             <div className="card-body">
               <table id="example2" className="table table-bordered table-hover">
                 <thead>

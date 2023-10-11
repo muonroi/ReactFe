@@ -4,13 +4,15 @@ import AppUrl from '../../Api/AppUrl';
 export default function ProductItem(props) {
     var product = props.product;
     var stt = props.stt;
+var handleDelete = props.handleDelete;
+var handlePublish = props.handlePublish;
     var myView =
   product.attributes.publishedAt == null ? (
-    <input type="range" min="0" max="1" value="0" />
+    <input onClick={handlePublish} name={product.id} type="range" min="0" max="1" value="0" />
   ) : (
-    <input type="range" min="0" max="1" value="1" />
+    <input onClick={handlePublish} name={product.id} type="range" min="0" max="1" value="1" />
   );
-
+  
   return (
     <tr className="odd">
       <td className="dtr-control sorting_1" tabIndex={0}>
@@ -27,10 +29,10 @@ export default function ProductItem(props) {
 </td>
       <td>{product.attributes.price}</td>
       <td>{myView}</td>
-      <td style={{ fontSize: '1.2em' }}>
+      <td style={{ fontSize: '1.2em', padding: '12px' }}>
         <i className="icon-eye-open"></i>
         <i className="icon-edit"></i>
-        <i className="icon-trash"></i>
+        <i className="icon-trash" name={product.id} onClick={handleDelete}></i>
       </td>
     </tr>
   );

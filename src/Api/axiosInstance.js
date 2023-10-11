@@ -19,3 +19,12 @@ export const configProductInstance = {
     },
 };
 export const axiosProductInstance = axios.create(configProductInstance);
+
+export const configProductImageInstance = {
+    baseURL: AppUrl.BaseURL,
+    headers: {
+        'Authorization': `Bearer ${AppUrl.productToken}`,
+        'Content-Type': 'multipart/form-data'
+    },
+};
+export const axiosProductImageInstance = axios.create(configProductImageInstance);

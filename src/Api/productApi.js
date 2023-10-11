@@ -1,4 +1,4 @@
-import {axiosProductInstance } from './axiosInstance'
+import {axiosProductInstance ,axiosProductImageInstance} from './axiosInstance'
 export const productApi = {
     getAll(params) {
         var url = '/products';
@@ -19,5 +19,9 @@ export const productApi = {
     del(id) {
         var url = `/products/${id}`
         return axiosProductInstance.delete(url)
+    },
+    upload(data) {
+        var url = `/upload`
+        return axiosProductImageInstance.post(url,data)
     }
 }

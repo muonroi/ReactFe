@@ -7,6 +7,7 @@ import Copyright from './scenes/global/Copyright';
 import { Outlet } from 'react-router-dom';
 import {Provider} from 'react-redux';
 import store from './state/store';
+import 'react-toastify/dist/ReactToastify.css';
 export default function App() {
   return (
     <div>
