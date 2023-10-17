@@ -7,9 +7,9 @@ import AppUrl from "../../../Api/AppUrl";
 import CategorySelect from "../../components/CategorySelect";
 import { useParams } from "react-router-dom";
 
-export default function AdminProductAdd(props) {
+export default function AdminProductEdit(props) {
   const [data, setData] = useState({
-    id:-1,
+    id: -1,
     productName: "",
     description: "",
     detail: "",
@@ -21,9 +21,9 @@ export default function AdminProductAdd(props) {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   var myViewImage =
-  images.length === 0
-    ? 'no image'
-    : images.map((img) => (
+    images.length === 0
+      ? 'no image'
+      : images.map((img) => (
         <div key={img.id}>
           <img
             src={AppUrl.ApiURL + img.url}
@@ -72,14 +72,14 @@ export default function AdminProductAdd(props) {
             data: data,
           };
 
-          const response = await productApi.update(data.id,postData);
+          const response = await productApi.update(data.id, postData);
           if (response.status === 200) {
             toast.success("Thành công");
             document.getElementById("createProduct").reset();
             setData({});
           }
         } catch (error) {
-          toast.error("Có lỗi: " + error);
+          console.log("Có lỗi: " + error);
         }
       };
 
@@ -95,7 +95,7 @@ export default function AdminProductAdd(props) {
       ...prevData,
       image: prevData.image.filter((img) => img.id !== idToRemove),
     }));
-  
+
     setImages((prevImages) => prevImages.filter((img) => img.id !== idToRemove));
   };
 
@@ -105,13 +105,13 @@ export default function AdminProductAdd(props) {
     const fetchData = async (productId) => {
       try {
         const params = {
-            populate: '*',
+          populate: '*',
         };
 
         const response = await productApi.get(productId, params);
         const oldProduct = response.data.data;
         setData({
-            id:oldProduct.id,
+          id: oldProduct.id,
           productName: oldProduct.attributes.productName,
           description: oldProduct.attributes.description,
           detail: oldProduct.attributes.detail || "",
