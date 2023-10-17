@@ -11,7 +11,7 @@ export default function AppBar() {
         return totalPrice + item.count * parseFloat(item.attributes.price);
     }, 0);
     return (
-        <div className="navbar navbar-inverse navbar-fixed-top">
+        <div className="navbar navbar-inverse navbar-fixed-top"  style={{ display:'flex', justifyContent:'center'}}>
             <div className="topNav">
                 <div className="container">
                     <div className="alignR">

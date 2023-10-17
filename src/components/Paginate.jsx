@@ -28,8 +28,8 @@ export default function Paginate(props) {
   if (currentPage !== totalPage) allLi.push(<li key="last"><Link to={basePath + totalPage}>Last</Link></li>);
 
   return (
-    <div className="pagination pagination-centered">
-      <ul>
+    <div className="pagination pagination-centered"  style={{ display:'flex', justifyContent:'center'}}>
+      <ul >
         {allLi}
       </ul>
     </div>

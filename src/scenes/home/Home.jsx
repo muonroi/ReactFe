@@ -218,8 +218,8 @@ export default function Home() {
     {myView2}
   </div>
 </div>
-            <div className="row">
-                    <div className="span12">
+            <div className="row" style={{ display:'flex', justifyContent:'center'}}>
+                    <div className="span12" style={{ display:'flex', justifyContent:'center'}}>
                         {paginateView}
                     </div>
                 </div>  

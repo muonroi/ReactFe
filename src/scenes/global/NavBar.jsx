@@ -49,7 +49,7 @@ export default function NavBar() {
                                     className="dropdown-toggle"
                                     a href="/"
                                 >
-                                    <span className="icon-lock"></span> Login <b className="caret"></b>
+                                    <span className="icon-lock"></span> Login
                                 </a>
                                 <div className="dropdown-menu">
                                     <form className="form-horizontal loginFrm">
