@@ -17,7 +17,10 @@ import AdminProductBox from './admin/scenes/Product/ProductBox';
 import AdminProductDetail from './admin/scenes/Product/ProductDetail';
 import AdminProductAdd from './admin/scenes/Product/ProductAdd';
 import AdminProductEdit from './admin/scenes/Product/ProductEdit';
-
+import Register from '../src/auth/scenes/Register'
+import Login from '../src/auth/scenes/Login'
+import store from './state/store';
+import { Provider } from 'react-redux';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const AppRouter = createBrowserRouter([
@@ -52,6 +55,14 @@ const AppRouter = createBrowserRouter([
       {
         path: 'cart',
         element: <CartMenu />
+      },
+      {
+        path: 'register',
+        element: <Register />
+      },
+      {
+        path: 'login',
+        element: <Login />
       }
     ]
   },
@@ -95,7 +106,9 @@ const AppRouter = createBrowserRouter([
 
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <RouterProvider router={AppRouter}>
     </RouterProvider>
+    </Provider>
   </React.StrictMode>
 );

@@ -1,16 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import TopNav from './components/TopNav';
 import Menu from './components/Menu';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 export default function Admin() {
     var adminCss = document.createElement("link");
     adminCss.rel = "stylesheet";
     adminCss.type="text/css";
     adminCss.href = "/admin/dist/css/adminlte.min.css";
     document.head.appendChild(adminCss);
+    const [role,setUserRole] = useState(useSelector((state) => state.user.role));
     return (
-        <>
+        
         <div className="wrapper">
+          {(role == 'Authenticated') &&(<Navigate to ='/product' replace={true}/>)}
+          {(role == 'Public') &&(<Navigate to ='/login' replace={true}/>)}
   <TopNav/>
   <Menu/>
 <div className="content-wrapper">
@@ -91,7 +95,6 @@ export default function Admin() {
   </section>
 </div>
 </div>
-        </>
         
     )
 }
