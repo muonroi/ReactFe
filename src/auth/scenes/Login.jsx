@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { setToken,setCurrentUser,setRole } from '../../state/userSlide';
+import { setToken, setCurrentUser, setRole } from '../../state/userSlide';
 import { userApi } from '../../Api/userApi';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
-import { Navigate  } from 'react-router-dom';
-export default function Register() {
+import { Navigate, useNavigate } from 'react-router-dom';
+export default function Login() {
   const dispatch = useDispatch();
-  const [userRole,setUserRole] = useState('Public');
-  
+  const navigate = useNavigate();
+  const [userRole, setUserRole] = useState('Public');
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePassword = () => {
     setPasswordVisible(!passwordVisible);
@@ -20,8 +21,8 @@ export default function Register() {
     formState: { errors },
     watch,
   } = useForm();
-  
-  
+
+
   const onSubmit = (data) => {
     try {
       const callLogin = async (data) => {
@@ -32,19 +33,7 @@ export default function Register() {
             localStorage.setItem('user', JSON.stringify(response.data.user));
             dispatch(setCurrentUser(response.data.user));
             dispatch(setToken(response.data.jwt));
-            const getInfo = async () => {
-              try {
-                 const response = await userApi.me({ populate: '*' });
-                 const role = response.data.role.name;
-                 console.log(role)
-                localStorage.setItem('role', role);
-                dispatch(setRole(role));
-                setUserRole(role);
-              } catch (error) {
-                console.error('Error fetching user information:', error);
-              }
-            };
-            getInfo();
+            navigate('/');
           }
         } catch (error) {
           if (error.response && error.response.data && error.response.data.error) {
@@ -61,7 +50,7 @@ export default function Register() {
                 });
               });
             } else {
-              
+
               toast.error('Login failed. Please try again.', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -95,66 +84,63 @@ export default function Register() {
 
   return (
     <>
-    {(userRole == 'Authenticated') &&(<Navigate to ='/product' replace={true}/>)}
-    {(userRole == 'AdminWeb') &&(<Navigate to ='/admin/product' replace={true}/>)}
-    {(userRole == 'Public') &&(<Navigate to ='/login' replace={true}/>)}
-    <div style={{ margin: '20px', padding: '20px', backgroundColor: '#f0f0f0' }}>
-      <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ fontWeight: 'bold' }} htmlFor="inputUsername">
-            Username <sup>*</sup>
-          </label>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <input
-              type="text"
-              placeholder="Username"
-              {...register('identifier', { required: 'Username is required' })}
-            />
-            {errors.username && <span style={{color:'red'}}>{errors.username.message}</span>}
+      <div style={{ margin: '20px', padding: '20px', backgroundColor: '#f0f0f0' }}>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ marginBottom: '15px' }}>
+            <label style={{ fontWeight: 'bold' }} htmlFor="inputUsername">
+              Username <sup>*</sup>
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'row' }}>
+              <input
+                type="text"
+                placeholder="Username"
+                {...register('identifier', { required: 'Username is required' })}
+              />
+              {errors.username && <span style={{ color: 'red' }}>{errors.username.message}</span>}
+            </div>
           </div>
-        </div>
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ fontWeight: 'bold' }}>
-            Password <sup>*</sup>
-          </label>
-          <div style={{ display: 'flex', flexDirection: 'row', position: 'relative' }}>
-            <input
-              type={passwordVisible ? 'text' : 'password'}
-               placeholder="Password"
-              {...register('password', { required: 'Password is required' })}
-            />
-            <i
-              className={`fa ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}
-              aria-hidden="true"
-              onClick={togglePassword}
-              style={{
-                cursor: 'pointer',
-                position: 'absolute',
-                left: '17%',
-                top: '34%',
-                opacity: '50%',
-                transform: 'translateY(-50%)',
-                cursor: 'pointer',
-              }}
-            ></i>
-            {errors.password && <span style={{color:'red'}}>{errors.password.message}</span>}
+          <div style={{ marginBottom: '15px' }}>
+            <label style={{ fontWeight: 'bold' }}>
+              Password <sup>*</sup>
+            </label>
+            <div style={{ display: 'flex', flexDirection: 'row', position: 'relative' }}>
+              <input
+                type={passwordVisible ? 'text' : 'password'}
+                placeholder="Password"
+                {...register('password', { required: 'Password is required' })}
+              />
+              <i
+                className={`fa ${passwordVisible ? 'fa-eye-slash' : 'fa-eye'}`}
+                aria-hidden="true"
+                onClick={togglePassword}
+                style={{
+                  cursor: 'pointer',
+                  position: 'absolute',
+                  left: '17%',
+                  top: '34%',
+                  opacity: '50%',
+                  transform: 'translateY(-50%)',
+                  cursor: 'pointer',
+                }}
+              ></i>
+              {errors.password && <span style={{ color: 'red' }}>{errors.password.message}</span>}
+            </div>
           </div>
-        </div>
-        <div>
           <div>
-            <input
-              type="submit"
-              name="submitAccount"
-              defaultValue="Register"
-              className="exclusive shopBtn"
-            />
+            <div>
+              <input
+                type="submit"
+                name="submitAccount"
+                defaultValue="Register"
+                className="exclusive shopBtn"
+              />
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
-        <ToastContainer />
+        </form>
+      </div>
+      <ToastContainer />
 
     </>
-    
+
   );
 }

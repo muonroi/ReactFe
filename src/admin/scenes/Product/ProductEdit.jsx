@@ -65,7 +65,7 @@ export default function AdminProductEdit(props) {
     e.preventDefault();
 
     var err = validateProduct(data);
-    if (err) {
+    if (err === "") {
       const editProduct = async (data) => {
         try {
           const postData = {
@@ -73,6 +73,7 @@ export default function AdminProductEdit(props) {
           };
 
           const response = await productApi.update(data.id, postData);
+          console.log(response)
           if (response.status === 200) {
             toast.success("Thành công");
             document.getElementById("createProduct").reset();
@@ -84,7 +85,8 @@ export default function AdminProductEdit(props) {
       };
 
       editProduct(data);
-    } else {
+    }
+    else {
       toast.error(err);
       return false;
     }
@@ -147,6 +149,7 @@ export default function AdminProductEdit(props) {
         theme="colored"
       />
       <div className="row">
+
         <div className="col-7">
           <form>
             <div className="form-group row">

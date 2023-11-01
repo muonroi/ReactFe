@@ -36,20 +36,9 @@ export const axiosProductImageInstance = axios.create(configProductImageInstance
 export const configUserInstance = {
   baseURL: AppUrl.BaseURL,
   headers: {
+    'Authorization': `Bearer ${AppUrl.productToken}`,
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 };
-
-if (token !== '') {
-  configUserInstance.headers['Authorization'] = `Bearer ${token}`;
-}
-
-store.subscribe(() => {
-  const newToken = store.getState().user.token;
-  if (configUserInstance.headers) {
-    configUserInstance.headers['Authorization'] = newToken ? `Bearer ${newToken}` : null;
-  }
-});
-
 export const axiosUserInstance = axios.create(configUserInstance);

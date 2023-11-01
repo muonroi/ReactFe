@@ -43,8 +43,9 @@ export default function AdminProductBox() {
   const handleDelete = (e) => {
     const deleteProduct = async (id) => {
       try {
-        var c = window.confirm('You want delete product: ' + id) + '?';
-        if (c == true) {
+        var c = window.confirm('You want delete product: ' + id + '?');
+        if (c === true) {
+          console.log('true')
           e.target.classList.remove('fa-trash');
           e.target.classList.add('fa-spinner');
           await productApi.del(id);
